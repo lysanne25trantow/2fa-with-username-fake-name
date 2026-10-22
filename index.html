@@ -58,7 +58,6 @@
       background: #1e293b;
     }
 
-    /* Glass Cards */
     .neon-card {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(12px);
@@ -106,7 +105,7 @@
     }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden transition-colors duration-300" x-data="appData()" x-init="initApp()" :class="isDarkMode ? 'dark' : ''">
+<body class="min-h-screen flex flex-col transition-colors duration-300" x-data="appData()" x-init="initApp()" :class="isDarkMode ? 'dark' : ''">
 
   <!-- Header Section -->
   <header class="border-b border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/90 backdrop-blur sticky top-0 z-50 flex-shrink-0">
@@ -163,7 +162,7 @@
   </header>
 
   <!-- Main Content Container -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-6 overflow-y-auto">
+  <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-6 my-auto">
     
     <!-- Toast Notification -->
     <div 
@@ -196,7 +195,7 @@
           x-model="rawKeysInput" 
           @input="processKeys()" 
           rows="3" 
-          placeholder="e.g. GAXG 243E MR2X QZ3X&#10;JBSWY3DPEHPK3PXP&#10;4K2U M39X Z810 LP11"
+          placeholder="Paste your 2FA secret keys here (one per line)..."
           class="w-full input-neon rounded-xl p-3 font-mono text-xs sm:text-sm tracking-wide transition-all focus:ring-0 resize-y"></textarea>
 
         <div class="grid grid-cols-2 gap-2 sm:gap-3 mt-3">
@@ -325,7 +324,6 @@
           </div>
           
           <div class="space-y-2 text-xs font-mono">
-            <!-- Full Name -->
             <div @click="copyToClipboard(identity.fullName, 'Full Name')" class="clickable-row flex justify-between items-center p-2 rounded bg-indigo-50 dark:bg-cyan-950/40 border border-indigo-200 dark:border-cyan-500/30 hover:border-indigo-400 dark:hover:border-cyan-400">
               <span class="text-indigo-700 dark:text-cyan-400 font-bold">Full Name</span>
               <div class="flex items-center gap-2">
@@ -334,7 +332,6 @@
               </div>
             </div>
 
-            <!-- First Name -->
             <div @click="copyToClipboard(identity.firstName, 'First Name')" class="clickable-row flex justify-between items-center p-2 rounded bg-slate-100 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/40 hover:border-indigo-400">
               <span class="text-slate-500 dark:text-slate-400">First Name</span>
               <div class="flex items-center gap-2">
@@ -343,7 +340,6 @@
               </div>
             </div>
 
-            <!-- Last Name -->
             <div @click="copyToClipboard(identity.lastName, 'Last Name')" class="clickable-row flex justify-between items-center p-2 rounded bg-slate-100 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/40 hover:border-indigo-400">
               <span class="text-slate-500 dark:text-slate-400">Last Name</span>
               <div class="flex items-center gap-2">
@@ -352,7 +348,6 @@
               </div>
             </div>
 
-            <!-- Username -->
             <div @click="copyToClipboard(identity.username, 'Username')" class="clickable-row flex justify-between items-center p-2 rounded bg-slate-100 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/40 hover:border-indigo-400">
               <span class="text-slate-500 dark:text-slate-400">Username</span>
               <div class="flex items-center gap-2">
@@ -361,7 +356,6 @@
               </div>
             </div>
 
-            <!-- SSN -->
             <div @click="copyToClipboard(identity.ssn, 'SSN')" class="clickable-row flex justify-between items-center p-2 rounded bg-slate-100 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/40 hover:border-indigo-400">
               <span class="text-slate-500 dark:text-slate-400">SSN</span>
               <div class="flex items-center gap-2">
@@ -370,7 +364,6 @@
               </div>
             </div>
 
-            <!-- DOB -->
             <div @click="copyToClipboard(identity.dob, 'DOB')" class="clickable-row flex justify-between items-center p-2 rounded bg-slate-100 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/40 hover:border-indigo-400">
               <span class="text-slate-500 dark:text-slate-400">DOB</span>
               <div class="flex items-center gap-2">
@@ -499,7 +492,7 @@
         isDarkMode: true,
         genderFilter: 'random',
         identity: null,
-        rawKeysInput: 'GAXG 243E MR2X QZ3X\nJBSWY3DPEHPK3PXP',
+        rawKeysInput: '', // Removed default demo keys
         keyEntries: [],
         timerSeconds: 30,
         usernameOpts: { keyword: '', style: 'tech' },
@@ -641,7 +634,7 @@
             gender: gender,
             firstName: fn,
             lastName: ln,
-            fullName: `${fn} ${ln}`, // Added Full Name Field
+            fullName: `${fn} ${ln}`,
             username: `${fn.toLowerCase()}${ln.toLowerCase()}_${unNum}`,
             ssn: `${Math.floor(100+Math.random()*899)}-${Math.floor(10+Math.random()*89)}-${Math.floor(1000+Math.random()*8999)}`,
             dob: `0${Math.floor(1+Math.random()*8)}/15/${Math.floor(1980+Math.random()*20)}`,
